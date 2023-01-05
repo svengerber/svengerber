@@ -1,0 +1,19 @@
+[user]
+  name = Sven Gerber
+  useConfigOnly = true
+
+[commit]
+  gpgsign = true
+
+[alias]
+  st = status
+  logg = log --graph --decorate --oneline --all
+  cm = commit
+  df = diff
+  dfs = diff --staged
+
+[includeIf "gitdir:~/github"]
+  path = ~/.gitconfig.github
+
+[includeIf "gitdir:~/gitlab/"]
+  path = ~/.gitconfig.gitlab
