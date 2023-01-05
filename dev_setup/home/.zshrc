@@ -110,3 +110,5 @@ source <(helm completion zsh)
 alias k="kubectl"
 
 export GPG_TTY=$(tty)
+
+zstyle :omz:plugins:ssh-agent lazy yes
