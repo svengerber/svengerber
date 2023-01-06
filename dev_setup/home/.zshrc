@@ -75,6 +75,7 @@ plugins=(
 	ssh-agent
 	zsh-autosuggestions
 	kube-ps1
+	zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
