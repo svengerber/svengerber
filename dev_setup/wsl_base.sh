@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#.ssh Config
+cp -r ./dev_setup/home/.ssh ~/
+chmod 700 -R ~/.ssh
+
 #Git
 sudo apt install git
 cp ./dev_setup/home/.gitconfig* ~/
