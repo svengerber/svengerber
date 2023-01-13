@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 #.ssh Config
 cp -r ./dev_setup/home/.ssh ~/
 chmod 700 -R ~/.ssh
@@ -15,6 +16,12 @@ sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packag
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt update
 sudo apt install -y kubectl
+
+#Disable windows path appending in WSL
+#Can lead to slow autocompletion in kubectl
+#Requires restart or wsl --shutdown
+echo "[interop]" | sudo tee /etc/wsl.conf -a
+echo "appendWindowsPath = false" | sudo tee /etc/wsl.conf -a
 
 #Helm current release
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
