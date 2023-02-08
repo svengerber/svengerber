@@ -113,3 +113,6 @@ alias k="kubectl"
 export GPG_TTY=$(tty)
 
 zstyle :omz:plugins:ssh-agent lazy yes
+
+# Add Windows VS Code dir back to PATH for "code ." functionality
+export PATH=$PATH:"/mnt/c/Users/svege/AppData/Local/Programs/Microsoft VS Code/bin"
