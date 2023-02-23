@@ -108,6 +108,7 @@ source $ZSH/oh-my-zsh.sh
 
 source <(kubectl completion zsh)
 source <(helm completion zsh)
+source <(flux completion zsh)
 alias k="kubectl"
 
 export GPG_TTY=$(tty)
