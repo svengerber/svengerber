@@ -120,13 +120,9 @@ alias k="kubectl"
 
 zstyle :omz:plugins:ssh-agent lazy yes
 
-
-
-# GPG bin path
-export GPG_TTY=$(tty)
-
-# Local unser bin path
 export PATH="/home/sven/.local/bin:$PATH"
-
-# Add Windows VS Code dir back to PATH for "code ." functionality
 export PATH=$PATH:"/mnt/c/Users/svege/AppData/Local/Programs/Microsoft VS Code/bin"
+export GPG_TTY=$TTY
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
