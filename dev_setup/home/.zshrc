@@ -122,6 +122,7 @@ zstyle :omz:plugins:ssh-agent lazy yes
 
 export PATH="/home/sven/.local/bin:$PATH"
 export PATH=$PATH:"/mnt/c/Users/svege/AppData/Local/Programs/Microsoft VS Code/bin"
+export PATH=$PATH:/usr/local/go/bin
 export GPG_TTY=$TTY
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
