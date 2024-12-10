@@ -78,11 +78,11 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git
-	ssh-agent
-	zsh-autosuggestions
-	kube-ps1
-	zsh-syntax-highlighting
+        git
+        ssh-agent
+        zsh-autosuggestions
+        kube-ps1
+        zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -117,14 +117,38 @@ source <(kubectl completion zsh)
 source <(helm completion zsh)
 source <(flux completion zsh)
 alias k="kubectl"
-alias clip.exe=/mnt/c/Windows/System32/clip.exe
+#alias kc="kubecm"
+alias kcs="kubie ctx"
+#alias kcn="kubecm namespace --ui-size 25"
+
+alias explorer="/mnt/c/Windows/explorer.exe ."
 
 zstyle :omz:plugins:ssh-agent lazy yes
 
 export PATH="/home/sven/.local/bin:$PATH"
+export PATH="/home/sven/go/bin:$PATH"
 export PATH=$PATH:"/mnt/c/Users/svege/AppData/Local/Programs/Microsoft VS Code/bin"
+export PATH=$PATH:"/mnt/c/Users/svege/AppData/Local/Programs/Microsoft VS Code Insiders/bin"
 export PATH=$PATH:/usr/local/go/bin
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH=$PATH:$HOME/minio-binaries/
+export PATH=$PATH:"/mnt/c/Windows/System32/cmd.exe"
 export GPG_TTY=$TTY
+
+function exists { which $1 &> /dev/null }
+
+if exists percol; then
+    function percol_select_history() {
+        local tac
+        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
+        CURSOR=$#BUFFER         # move cursor
+        zle -R -c               # refresh
+    }
+
+    zle -N percol_select_history
+    bindkey '^R' percol_select_history
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
