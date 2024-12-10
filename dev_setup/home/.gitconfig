@@ -5,6 +5,12 @@
 [commit]
   gpgsign = true
 
+[pull]
+  rebase = false
+
+[gpg]
+  format = ssh
+
 [alias]
   st = status
   logg = log --graph --decorate --oneline --all
@@ -12,8 +18,15 @@
   df = diff
   dfs = diff --staged
 
-[includeIf "gitdir:~/github/"]
+
+[includeIf "gitdir:~/github*/"]
   path = ~/.gitconfig.github
 
-[includeIf "gitdir:~/gitlab/"]
+[includeIf "gitdir:~/github-sg/"]
+  path = ~/.gitconfig.github-sg
+
+[includeIf "gitdir:~/gitlab/*"]
+  path = ~/.gitconfig.gitlab
+
+[includeIf "gitdir:~/gitlab*/"]
   path = ~/.gitconfig.gitlab
