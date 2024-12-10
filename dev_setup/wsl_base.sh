@@ -46,6 +46,7 @@ curl -s https://fluxcd.io/install.sh | sudo bash
 sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
 wget https://github.com/sbstp/kubie/releases/download/v0.24.0/kubie-linux-amd64
 sudo mv kubie-linux-amd64 /usr/local/bin/kubie
+sudo chmod +x /usr/local/bin/kubie
 sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
 sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 mkdir -p ~/.oh-my-zsh/completions
