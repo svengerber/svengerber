@@ -117,6 +117,7 @@ source $ZSH/oh-my-zsh.sh
 source <(kubectl completion zsh)
 source <(helm completion zsh)
 source <(flux completion zsh)
+source <(fzf --zsh)
 alias k="kubectl"
 #alias kc="kubecm"
 alias kcs="kubie ctx"
