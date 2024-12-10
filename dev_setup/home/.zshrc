@@ -83,6 +83,7 @@ plugins=(
         zsh-autosuggestions
         kube-ps1
         zsh-syntax-highlighting
+		zsh-history-substring-search
 )
 
 source $ZSH/oh-my-zsh.sh
