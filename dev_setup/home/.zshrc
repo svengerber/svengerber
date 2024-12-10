@@ -117,6 +117,7 @@ source <(kubectl completion zsh)
 source <(helm completion zsh)
 source <(flux completion zsh)
 alias k="kubectl"
+alias clip.exe=/mnt/c/Windows/System32/clip.exe
 
 zstyle :omz:plugins:ssh-agent lazy yes
 
