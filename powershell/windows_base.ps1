@@ -7,3 +7,5 @@ winget install -e --id MuhammedKalkan.OpenLens
 winget install -e --id Docker.DockerDesktop
 winget install -e --id WiresharkFoundation.Wireshark
 winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
+winget install -e --id JetBrains.IntelliJIDEA.Ultimate
+winget install -e --id VivaldiTechnologies.Vivaldi
