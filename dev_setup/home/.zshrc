@@ -126,6 +126,8 @@ alias kcs="kubie ctx"
 #alias kcn="kubecm namespace --ui-size 25"
 
 alias explorer="/mnt/c/Windows/explorer.exe ."
+alias cmd.exe="/mnt/c/Windows/System32/cmd.exe"
+alias gitclean='git branch --merged origin/main | grep -vE "^\s*(\*|main|develop)" | xargs -n 1 git branch -d'
 
 zstyle :omz:plugins:ssh-agent lazy yes
 
@@ -137,8 +139,15 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH=$PATH:$HOME/minio-binaries/
 export PATH=$PATH:"/mnt/c/Windows/System32/cmd.exe"
+export PATH=$PATH:"/home/sven/.windows-bins"
 export GPG_TTY=$TTY
+export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+export VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH="/mnt/c/Users/Sven Gerber/.vagrant-setup"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
