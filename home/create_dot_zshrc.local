@@ -1,0 +1,2 @@
+# Machine-local / work-specific shell config. Sourced at the end of ~/.zshrc.
+# Created once by chezmoi and never overwritten - NOT tracked in the dotfiles repo.

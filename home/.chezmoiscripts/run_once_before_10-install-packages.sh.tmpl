@@ -1,0 +1,57 @@
+{{- if and (eq .chezmoi.os "linux") (lookPath "apt-get") -}}
+#!/bin/bash
+# Base toolchain for Debian/Ubuntu (incl. WSL). Runs once per machine; to re-run:
+#   chezmoi state delete-bucket --bucket=scriptState && chezmoi apply
+# Converted from the former dev_setup/wsl_base.sh, made idempotent.
+set -euo pipefail
+
+KUBE_MINOR="v1.31"
+KUBIE_VERSION="v0.24.0"
+
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl gpg git zsh apt-transport-https netcat-openbsd
+
+# kubectl
+if ! command -v kubectl >/dev/null; then
+  sudo mkdir -p /etc/apt/keyrings
+  curl -fsSL "https://pkgs.k8s.io/core:/stable:/${KUBE_MINOR}/deb/Release.key" | sudo gpg --dearmor --yes -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${KUBE_MINOR}/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list >/dev/null
+  sudo apt-get update
+  sudo apt-get install -y kubectl
+fi
+
+# helm
+if ! command -v helm >/dev/null; then
+  curl -fsSL https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg >/dev/null
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list >/dev/null
+  sudo apt-get update
+  sudo apt-get install -y helm
+fi
+
+# starship
+command -v starship >/dev/null || curl -sS https://starship.rs/install.sh | sh -s -- -y
+
+# flux
+command -v flux >/dev/null || curl -s https://fluxcd.io/install.sh | sudo bash
+
+# kubectx / kubens
+if [ ! -d /opt/kubectx ]; then
+  sudo git clone --depth 1 https://github.com/ahmetb/kubectx /opt/kubectx
+fi
+sudo ln -sf /opt/kubectx/kubectx /usr/local/bin/kubectx
+sudo ln -sf /opt/kubectx/kubens /usr/local/bin/kubens
+# (zsh completions are linked in run_onchange_after_20-post-externals, once ~/.oh-my-zsh exists)
+
+# kubie
+if ! command -v kubie >/dev/null; then
+  tmp=$(mktemp)
+  curl -fsSL -o "$tmp" "https://github.com/sbstp/kubie/releases/download/${KUBIE_VERSION}/kubie-linux-amd64"
+  sudo install -m 0755 "$tmp" /usr/local/bin/kubie
+  rm -f "$tmp"
+fi
+
+# default shell
+if [ "$(getent passwd "$USER" | cut -d: -f7)" != "$(command -v zsh)" ]; then
+  chsh -s "$(command -v zsh)"
+fi
+{{ end -}}

@@ -1,0 +1,37 @@
+# Third-party repos chezmoi clones/updates. `chezmoi apply` refreshes them at
+# most once per refreshPeriod; force with `chezmoi apply --refresh-externals`.
+
+[".oh-my-zsh"]
+  type = "git-repo"
+  url = "https://github.com/ohmyzsh/ohmyzsh.git"
+  refreshPeriod = "168h"
+  clone.args = ["--depth", "1"]
+  pull.args = ["--ff-only"]
+
+[".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
+  type = "git-repo"
+  url = "https://github.com/zsh-users/zsh-autosuggestions.git"
+  refreshPeriod = "168h"
+  clone.args = ["--depth", "1"]
+  pull.args = ["--ff-only"]
+
+[".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
+  type = "git-repo"
+  url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+  refreshPeriod = "168h"
+  clone.args = ["--depth", "1"]
+  pull.args = ["--ff-only"]
+
+[".oh-my-zsh/custom/plugins/zsh-history-substring-search"]
+  type = "git-repo"
+  url = "https://github.com/zsh-users/zsh-history-substring-search.git"
+  refreshPeriod = "168h"
+  clone.args = ["--depth", "1"]
+  pull.args = ["--ff-only"]
+
+[".fzf"]
+  type = "git-repo"
+  url = "https://github.com/junegunn/fzf.git"
+  refreshPeriod = "168h"
+  clone.args = ["--depth", "1"]
+  pull.args = ["--ff-only"]

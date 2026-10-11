@@ -1,0 +1,6 @@
+# Machine-local / work-specific git config. Included at the end of ~/.gitconfig.
+# Created once by chezmoi and never overwritten - NOT tracked in the dotfiles repo.
+#
+# Example:
+# [includeIf "gitdir:~/github-work/"]
+#   path = ~/.gitconfig.github-work

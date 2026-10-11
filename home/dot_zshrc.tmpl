@@ -116,24 +116,40 @@ alias k="kubectl"
 alias kcs="kubie ctx"
 #alias kcn="kubecm namespace --ui-size 25"
 
+{{ if .wsl -}}
 alias explorer="/mnt/c/Windows/explorer.exe ."
 alias cmd.exe="/mnt/c/Windows/System32/cmd.exe"
+alias powershell.exe="/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
+{{ end -}}
 alias gitclean='git branch --merged origin/main | grep -vE "^\s*(\*|main|develop)" | xargs -n 1 git branch -d'
+
+gpfast() {
+  git push -o merge_request.create \
+           -o merge_request.target="$1" \
+           -o merge_request.auto_merge \
+           origin HEAD
+}
 
 zstyle :omz:plugins:ssh-agent lazy yes
 
-export PATH="/home/sven/.local/bin:$PATH"
-export PATH="/home/sven/go/bin:$PATH"
-export PATH=$PATH:"/mnt/c/Users/Sven Gerber/AppData/Local/Programs/Microsoft VS Code/bin"
-export PATH=$PATH:"/mnt/c/Users/Sven Gerber/AppData/Local/Programs/Microsoft VS Code Insiders/bin"
+export PATH="{{ .chezmoi.homeDir }}/.local/bin:$PATH"
+export PATH="{{ .chezmoi.homeDir }}/go/bin:$PATH"
+{{ if .wsl -}}
+export PATH=$PATH:"{{ .winHome }}/AppData/Local/Programs/Microsoft VS Code/bin"
+export PATH=$PATH:"{{ .winHome }}/AppData/Local/Programs/Microsoft VS Code Insiders/bin"
+{{ end -}}
 export PATH=$PATH:/usr/local/go/bin
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH=$PATH:$HOME/minio-binaries/
+{{ if .wsl -}}
 export PATH=$PATH:"/mnt/c/Windows/System32/cmd.exe"
-export PATH=$PATH:"/home/sven/.windows-bins"
+export PATH=$PATH:"{{ .chezmoi.homeDir }}/.windows-bins"
+{{ end -}}
 export GPG_TTY=$TTY
+{{ if .wsl -}}
 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
-export VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH="/mnt/c/Users/Sven Gerber/.vagrant-setup"
+export VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH="{{ .winHome }}/.vagrant-setup"
+{{- end }}
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -143,3 +159,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 eval "$(starship init zsh)"
+
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C {{ .chezmoi.homeDir }}/.local/bin/bao bao
+
+# Machine-local / work-specific config, not tracked in the public dotfiles repo
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

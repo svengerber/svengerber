@@ -1,0 +1,11 @@
+{{- if .wsl -}}
+#!/bin/bash
+# Don't append the Windows PATH inside WSL: it makes kubectl completion slow.
+# Takes effect after `wsl --shutdown`.
+set -euo pipefail
+
+if ! grep -q '^appendWindowsPath' /etc/wsl.conf 2>/dev/null; then
+  printf '\n[interop]\nappendWindowsPath = false\n' | sudo tee -a /etc/wsl.conf >/dev/null
+  echo "wsl.conf updated - run 'wsl --shutdown' from Windows to apply."
+fi
+{{ end -}}

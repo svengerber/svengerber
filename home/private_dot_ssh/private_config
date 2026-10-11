@@ -1,3 +1,7 @@
+# Machine-local / work-specific hosts live in ~/.ssh/config.d/ (not tracked in
+# the public dotfiles repo). Include must come before any Host/Match block.
+Include config.d/*
+
 #SSH Agent
 AddKeysToAgent yes
 
@@ -12,4 +16,3 @@ Host gitlab.com
    HostName gitlab.com
    PreferredAuthentications publickey
    IdentityFile ~/.ssh/id_gitlab_ed25519
-   

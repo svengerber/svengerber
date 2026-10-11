@@ -1,0 +1,3 @@
+{{ if not .wsl }}
+bin/claude-notify
+{{ end }}

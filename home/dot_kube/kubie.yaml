@@ -1,5 +1,9 @@
 configs:
     include:
         - ~/.kube/configs/*
+        - ~/.kube/config
 prompt:
     disable: true
+
+behavior:
+    validate_namespaces: false

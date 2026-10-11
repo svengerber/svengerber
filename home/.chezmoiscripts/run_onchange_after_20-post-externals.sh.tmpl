@@ -1,0 +1,17 @@
+#!/bin/bash
+# Runs after the externals (.oh-my-zsh, .fzf, ...) are cloned/updated.
+# Re-runs whenever the fzf checkout changes:
+# fzf HEAD: {{ if stat (joinPath .chezmoi.homeDir ".fzf" ".git") }}{{ output "git" "-C" (joinPath .chezmoi.homeDir ".fzf") "rev-parse" "HEAD" | trim }}{{ else }}none{{ end }}
+set -euo pipefail
+
+# fzf binary + ~/.fzf.{zsh,bash}; --no-update-rc because .zshrc is managed
+if [ -x ~/.fzf/install ]; then
+  ~/.fzf/install --key-bindings --completion --no-update-rc --no-fish
+fi
+
+# kubectx / kubens zsh completions
+if [ -d /opt/kubectx ] && [ -d ~/.oh-my-zsh ]; then
+  mkdir -p ~/.oh-my-zsh/completions
+  ln -sf /opt/kubectx/completion/_kubectx.zsh ~/.oh-my-zsh/completions/_kubectx.zsh
+  ln -sf /opt/kubectx/completion/_kubens.zsh ~/.oh-my-zsh/completions/_kubens.zsh
+fi

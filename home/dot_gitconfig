@@ -22,11 +22,13 @@
 [includeIf "gitdir:~/github*/"]
   path = ~/.gitconfig.github
 
-[includeIf "gitdir:~/github-sg/"]
-  path = ~/.gitconfig.github-sg
-
 [includeIf "gitdir:~/gitlab/*"]
   path = ~/.gitconfig.gitlab
 
 [includeIf "gitdir:~/gitlab*/"]
   path = ~/.gitconfig.gitlab
+
+# Machine-local / work-specific identities (not tracked in the public dotfiles
+# repo). Last, so its includeIf blocks override the ones above.
+[include]
+  path = ~/.gitconfig.local

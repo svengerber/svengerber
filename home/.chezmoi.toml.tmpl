@@ -1,0 +1,16 @@
+{{- /* Rendered once by `chezmoi init`; re-run `chezmoi init` after editing. */ -}}
+{{- $wsl := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{- $winHome := "" -}}
+{{- if $wsl -}}
+{{-   $winHome = promptStringOnce . "winHome" "Windows home dir as seen from WSL" "/mnt/c/Users/Sven Gerber" -}}
+{{- end }}
+[data]
+  wsl = {{ $wsl }}
+  winHome = {{ $winHome | quote }}
+
+[git]
+  autoCommit = false
+  autoPush = false
+
+[diff]
+  exclude = ["scripts"]

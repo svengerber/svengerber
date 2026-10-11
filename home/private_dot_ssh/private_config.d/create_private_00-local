@@ -1,0 +1,3 @@
+# Machine-local / work-specific SSH hosts. Every file in ~/.ssh/config.d/ is
+# pulled in by `Include config.d/*` at the top of ~/.ssh/config.
+# Created once by chezmoi and never overwritten - NOT tracked in the dotfiles repo.
